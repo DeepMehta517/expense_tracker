@@ -52,11 +52,12 @@ Expense_tracker/
 Issue
 Solution
 App not running?
-Check if the backend server is running (npm start)
-API calls failing?
+Check if the backend server is running (npm start) 
+if not running than write cmd -  npx nodemon server.js
 
+API calls failing?
 Ensure base URL is correct (config.dart)
 Emulator not detecting API?
-Use http://10.0.2.2:5000/api 
+Use http://10.0.2.2:5000/
 
 🚀 Your Flutter Expense Tracker App is now set up and ready to use!
