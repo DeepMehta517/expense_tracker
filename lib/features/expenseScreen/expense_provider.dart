@@ -46,6 +46,7 @@ class ExpenseProvider extends ChangeNotifier {
         } else {
           debugPrint("Unexpected response format: $responseData");
         }
+        notifyListeners();
       } else {
         debugPrint("Failed to fetch expenses: ${response.body}");
       }
@@ -61,7 +62,7 @@ class ExpenseProvider extends ChangeNotifier {
     final url = Uri.parse("http://10.0.2.2:5002/expenses/addExpenses");
     final token = await getToken();
     if (token == null) {
-      print("No token found. Please login.");
+      debugPrint("No token found. Please login.");
       return;
     }
     try {
@@ -80,9 +81,13 @@ class ExpenseProvider extends ChangeNotifier {
       );
 
       if (response.statusCode == 200) {
-        final newExpense = Expense.fromJson(jsonDecode(response.body));
+        final newExpense = Expense.fromJson(jsonDecode(response.body)["expense"]);
         _expenses.add(newExpense);
         notifyListeners();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Expense Added Successfully")),
+        );
+        fetchExpenses();
       } else {
         debugPrint("Failed to add expense: ${response.body}");
       }

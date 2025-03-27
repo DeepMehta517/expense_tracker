@@ -12,7 +12,7 @@ exports.addExpense = async (req, res) => {
 
     const userId = req.user.id; 
     const expense = await Expense.create({ amount, category, description, date, userId });
-    res.status(201).json({ success: true, message: "Expense added successfully", expense });
+    res.status(200).json({ success: true, message: "Expense added successfully", expense });
 
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
